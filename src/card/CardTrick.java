@@ -20,36 +20,35 @@ public class CardTrick {
     {
         
         Card[] magicHand = new Card[7];
+        Random rand = new Random();
         
         Card luckyCard = new Card();
         luckyCard.setValue(2);
         luckyCard.setSuit("Clubs");
-        
-        for (int i=0; i<magicHand.length; i++)
-        {
+
+        //Fill magic hand and print it out
+        System.out.println("Magic Hand: ");
+        for (int i=0; i<magicHand.length; i++) {
             Card c = new Card();
-            Random rand = new Random();
             //c.setValue(insert call to random number generator here)
             c.setValue(rand.nextInt(13) + 1);
             //c.setSuit(Card.SUITS[insert call to random number between 0-3 here])
             c.setSuit(Card.SUITS[rand.nextInt(4)]);
-            
             magicHand[i] = c;
+            System.out.println(c.getSuit() + " " + c.getValue());
         }
-        
+
+        //Ask user for a card
         Scanner input = new Scanner(System.in);
-        
         Card userCard = new Card();
         
         System.out.println("Enter a card value (1-13): ");
-        int userValue = input.nextInt();
-        userCard.setValue(userValue);
+        userCard.setValue(input.nextInt());
         
         System.out.println("Enter a suit (0-3 where 0=Hearts, 1=Diamonds, 2=Clubs, 3=Spades): ");
-        int userSuit = input.nextInt();
-        userCard.setSuit(Card.SUITS[userSuit]);
+        userCard.setSuit(Card.SUITS[input.nextInt()]);
         
-        
+        //Search for user card
         boolean found = false;
         for (Card cardInHand : magicHand) {
             if (cardInHand.getValue() == userCard.getValue() && cardInHand.getSuit().equals(userCard.getSuit())) {
@@ -57,7 +56,8 @@ public class CardTrick {
                 break;
             }
         }
-        
+
+        //Output result
         if (found) {
             System.out.println("Congratulation! Your card is in the magic hand!");
         } else {
